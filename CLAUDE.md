@@ -24,3 +24,16 @@ Key things to hold onto across every session:
   dropping in oversized originals, and inline SVG preferred over raster
   when the visual is simple enough to be one. Any video (e.g. Manim
   renders, Phase 4) uses `preload="metadata"`, not `auto`.
+- Custom visuals (Phase 4) default to hand-authored **inline** SVG/JS —
+  written directly in the note's `.figure` block, not linked as an external
+  `.svg`/`.png` — so colors can reference the theme's CSS custom properties
+  (`fill="var(--accent)"`, etc.) and stay theme-reactive automatically,
+  including if dark mode is added later. Simple animation is plain CSS
+  `@keyframes`/`transition`; anything interactive (sliders, live-updating
+  diagrams) is plain vanilla JS scoped to that figure — no framework, no
+  bundler, matching the rest of the stack. Do **not** install Manim or its
+  toolchain (Python, ffmpeg, a LaTeX distribution) as standing
+  infrastructure — it's a deliberate, case-by-case tool for a specific
+  concept that genuinely needs a complex choreographed animation hand-SVG
+  can't reasonably do well, decided visual by visual once real content
+  exists, not set up in advance. See DECISIONS.md for the full reasoning.

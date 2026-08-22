@@ -277,6 +277,49 @@ folder should mean editing one place, not hunting through templates.
 
 ---
 
+## 2026-08-22 — Phase 4: Custom visuals — inline SVG/JS by default, Manim deferred
+
+**Decision:** hand-authored, **inline** SVG/JS is the default for all
+custom visuals — static diagrams, simple animation, and anything
+interactive. Manim is not installed or set up as standing infrastructure;
+it's deferred to a case-by-case call, made per-visual once real content
+exists to know which specific concept actually needs it.
+
+**Options considered** (as posed in `PROJECT_BRIEF.md`):
+- **Hand-authored SVG/JS** — no new toolchain, and specifically *inline*
+  SVG (written directly in a note's markdown, not linked as an external
+  `.svg` file) can reference the theme's CSS custom properties directly
+  (`fill="var(--accent)"`), so every diagram re-themes automatically if the
+  palette changes or dark mode is added later — a linked `.svg` file is
+  sandboxed from the page's CSS and can't do this. Can also be genuinely
+  interactive (e.g. a live ε-slider on a convergence diagram), not just
+  static or passively animated, which a pre-rendered video can't do at
+  all. Simple animation is CSS `@keyframes`, which automatically respects
+  `prefers-reduced-motion` (already guarded in `theme.css`).
+- **Manim** — best-in-class for genuinely complex, camera-choreographed
+  animation, but a full separate toolchain (Python, Manim, ffmpeg, a LaTeX
+  distribution) alongside the Node/11ty stack this repo has otherwise kept
+  lean; renders to a fixed video whose colors need manual syncing and won't
+  adapt to a future theme change or respect `prefers-reduced-motion`
+  without a re-render; and video output is binary content that bloats git
+  history in a way nothing else here does.
+
+**Why default-SVG rather than "use both" immediately:** the brief's own
+framing was "we can likely use both," but installing Manim's toolchain now
+would be infrastructure with no current payoff — there's no content yet,
+so there's no specific animation to justify the weight. Reusing the
+`.figure` convention from Phase 3 (a self-contained
+`<figure class="figure"><svg>...</svg><script>...</script><figcaption>`
+block dropped straight into a note's markdown) already covers static and
+interactive visuals with zero new dependencies. If a visual gets reused
+across multiple pages, that's the signal to promote it into a shared file
+under `assets/js/` rather than duplicating it per page.
+
+Standing convention recorded in `CLAUDE.md` so this isn't re-litigated
+(or Manim casually installed) in a future session without this reasoning.
+
+---
+
 ## 2026-08-22 — Meta: this decision log
 
 **Decision:** Keep this file (`DECISIONS.md`) updated across every phase of
