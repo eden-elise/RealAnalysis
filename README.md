@@ -38,9 +38,38 @@ src/
 ```
 
 Each topic folder's own `index.html` is that topic's landing page. Individual
-note pages (definitions/theorems, each following a consistent template) will
-be added inside these folders starting in a later phase — the page template
-itself is still being decided (see `DECISIONS.md`).
+note pages (definitions/theorems) go inside these folders as `.md` files, one
+per axiom/definition/theorem — none exist yet; content comes in a later phase.
 
-This README will be expanded with "how to add a new note page" instructions
-once that template is locked in.
+## Note page template
+
+```yaml
+---
+layout: note-layout.html
+type: theorem              # axiom | definition | theorem
+kind: lemma                # optional, theorem-type only: lemma | corollary | proposition | theorem
+id: some-stable-id         # used for all cross-linking — independent of file path/title
+title: "Human-Readable Title"
+statement: "Rendered through KaTeX/markdown, e.g. $x = x$."
+prerequisites:
+  - some-other-id
+---
+## Intuition
+...
+## Proof            <!-- theorem-type pages only -->
+...
+```
+
+- `id` is what `prerequisites` links point to, not a file path — pages and
+  folders can be renamed/reorganized freely without breaking links.
+- `statement` is a separate frontmatter field (not just page prose) so the
+  `reference/` index can list every statement without its proof.
+- `prerequisites` is the only hand-authored relationship. "Related results"
+  (what depends on this page) is computed automatically as its inverse —
+  never hand-maintained, can't drift out of sync.
+- Sidebar, topic pages, and `reference/` all render notes in dependency
+  order, computed from `prerequisites` — no manual ordering anywhere.
+- Math is written as `$inline$` / `$$block$$` and rendered at build time via
+  KaTeX (self-hosted, no CDN).
+
+Full reasoning behind this template is in `DECISIONS.md`.

@@ -4,8 +4,18 @@ landing: true
 title: Reference
 ---
 <h1>Reference</h1>
-<p><em>Placeholder — this page will eventually list every definition and theorem in
-dependency order, statement only, no proofs: a quick lookup of building blocks
-when working a proof. How each page's statement gets extracted for this listing
-(a dedicated frontmatter field vs. a marked content section) is finalized as part
-of the note-page template in Phase 2.</em></p>
+<p>Every definition and theorem, statement only, in dependency order — a
+quick lookup of building blocks when working a proof.</p>
+
+{% if collections.notes.length %}
+  <ul class="reference-list">
+    {% for page in collections.notes %}
+      <li>
+        <a href="{{ page.url }}">{{ page.data.title }}</a>
+        <p>{{ page.data.statement | mathify | safe }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p><em>No pages yet — this list populates automatically as note pages are added.</em></p>
+{% endif %}

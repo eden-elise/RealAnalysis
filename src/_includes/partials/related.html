@@ -1,0 +1,10 @@
+{% if usedByResolved and usedByResolved.length %}
+  <section class="related-results">
+    <h2>Related results</h2>
+    <ul>
+      {% for r in usedByResolved %}
+        <li><a href="{{ r.url }}">{{ r.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}

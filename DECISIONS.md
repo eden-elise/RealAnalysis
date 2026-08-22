@@ -111,6 +111,94 @@ note-page template design in Phase 2, not decided yet.
 
 ---
 
+## 2026-08-22 — Phase 2: Note-page template and frontmatter schema
+
+**Decision:** locked the following frontmatter schema for every note page
+(axiom/definition/theorem):
+
+- `type`: `axiom` | `definition` | `theorem`.
+- `kind` (theorem-type only, optional): `lemma` | `corollary` | `proposition`
+  | `theorem` — display label only, all four share the same template shape.
+- `id`: a stable short id, independent of file path/title. This is what
+  `prerequisites` links point to, so pages/folders can be renamed or moved
+  without breaking any cross-link — extends the same reasoning as the
+  Phase 1 folder-renaming decision, but for individual pages.
+- `title`: human-readable page title.
+- `statement`: pulled into frontmatter (not left as page prose) specifically
+  so the `reference/` index can list every statement without its proof —
+  this resolves the open item flagged when `reference/` was scaffolded in
+  Phase 1.
+- `prerequisites`: array of other pages' `id`s. This is the **only**
+  hand-authored relationship.
+
+Everything else (Intuition, Proof) is ordinary markdown body content under
+conventional headings (`## Intuition`, `## Proof`), not separate frontmatter
+fields — axiom/definition pages simply omit `## Proof` by convention, since
+there's nothing to prove; this isn't code-enforced.
+
+**Cross-linking mechanism:** implemented in `.eleventy.js`'s `notes`
+collection. Each page's `prerequisites` ids are resolved at build time to
+real `{url, title}` links (`prerequisitesResolved`, rendered by
+`partials/breadcrumb.html`). An id that doesn't match any page fails the
+build immediately (verified: a bad id throws
+`unknown prerequisite id "..."` and stops the build, rather than rendering a
+dead link).
+
+**"Related results" is computed, not authored:** rather than a `related:`
+field a page's author would have to keep in sync by hand, it's the inverse
+of the prerequisites graph — every page that lists this page as a
+prerequisite — computed once across all pages (`usedByResolved`, rendered by
+the new `partials/related.html`). Can't drift out of sync because there's
+nothing to hand-maintain.
+
+**Dependency ordering:** the `notes` collection returns pages via a
+depth-first topological sort over `prerequisites` (with cycle detection —
+throws on a circular dependency rather than infinite-looping). This is the
+single source of ordering truth, consumed by the sidebar, `reference/`, and
+eventually per-topic landing pages — no numbered filenames, nothing manually
+reordered as pages are added.
+
+Verified end-to-end with disposable test-fixture pages (an axiom + a
+dependent lemma, deliberately not committed): correct dependency order,
+correct breadcrumb/backlink resolution, and a confirmed build failure on an
+unknown prerequisite id. Fixtures were deleted before committing; no test
+content is in this repo.
+
+---
+
+## 2026-08-22 — Phase 2: Math rendering — KaTeX (build-time)
+
+**Decision:** math is written inline as `$...$` / block as `$$...$$` in page
+content (and in the `statement` frontmatter field, via a new `mathify`
+filter), rendered to HTML at **build time** via KaTeX — not client-side, not
+via CDN.
+
+**Why build time over client-side/CDN:** produces genuinely static output
+(no render flash, works without JS), matches the "static site" approach
+already established for the rest of the stack, and avoids taking a runtime
+dependency on a third-party CDN for a personal site that should keep working
+if that CDN ever doesn't.
+
+**Implementation:** `markdown-it` (explicit dependency, rather than relying
+on Eleventy's internal copy) configured with the `markdown-it-texmath`
+plugin and the `katex` renderer, set as Eleventy's markdown library via
+`setLibrary("md", ...)`. KaTeX's CSS and font files are self-hosted (copied
+from `node_modules/katex/dist` into `assets/vendor/katex/` at build time),
+not loaded from a CDN.
+
+**New dependencies installed:** `katex`, `markdown-it`,
+`markdown-it-texmath` (dev dependencies). Flagging explicitly since these
+weren't named one-by-one before installing — they're the standard mechanism
+for "use KaTeX with Eleventy," which was already agreed; noting them here so
+the choice is visible, not just assumed.
+
+**Known cosmetic detail to revisit in Phase 3:** `markdown-it-texmath`
+wraps its output in `<eq>` (inline) and `<eqn><section>` (block) tags, which
+aren't real HTML5 elements — harmless today, but worth a look once real
+theme CSS exists in case they need explicit `display` rules.
+
+---
+
 ## 2026-08-22 — Meta: this decision log
 
 **Decision:** Keep this file (`DECISIONS.md`) updated across every phase of

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title }} · Real Analysis Hub</title>
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
   <link rel="stylesheet" href="/assets/css/theme.css">
 </head>
 <body>
@@ -11,7 +12,14 @@
     {% include "partials/sidebar.html" %}
     <main>
       {% include "partials/breadcrumb.html" %}
+      <p class="note-kind">{{ (kind or type) | capitalize }}</p>
+      <h1>{{ title }}</h1>
+      <section class="statement">
+        <h2>Statement</h2>
+        <p>{{ statement | mathify | safe }}</p>
+      </section>
       {{ content | safe }}
+      {% include "partials/related.html" %}
     </main>
   </div>
 </body>
