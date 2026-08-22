@@ -1,0 +1,10 @@
+{% if prerequisites and prerequisites.length %}
+  <div class="breadcrumb-prereqs">
+    <span>Depends on:</span>
+    <ul>
+      {% for prereq in prerequisites %}
+        <li><a href="{{ prereq }}">{{ prereq }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

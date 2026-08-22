@@ -1,0 +1,33 @@
+/* Placeholder theme so scaffolded pages render sanely.
+   Real palette/typography/spacing decisions happen in Phase 3 —
+   everything should keep pulling from these custom properties, not
+   hardcoded values, so that phase only has to touch this file. */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #111111;
+  --color-accent: #2b6cb0;
+  --font-body: system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --space-unit: 1rem;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  flex: 0 0 220px;
+  padding: var(--space-unit);
+}
+
+main {
+  flex: 1;
+  padding: var(--space-unit);
+}

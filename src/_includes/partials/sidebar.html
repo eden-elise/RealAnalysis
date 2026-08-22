@@ -1,0 +1,8 @@
+<nav class="sidebar" aria-label="Site navigation">
+  <a class="sidebar__home" href="/">Real Analysis Hub</a>
+  <ul>
+    {% for page in collections.notes %}
+      <li><a href="{{ page.url }}">{{ page.data.title or page.fileSlug }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
