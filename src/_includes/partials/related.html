@@ -3,7 +3,7 @@
     <h2>Related results</h2>
     <ul>
       {% for r in usedByResolved %}
-        <li><a href="{{ r.url }}">{{ r.title }}</a></li>
+        <li><a class="chip" href="{{ r.url }}">{{ r.title }}</a></li>
       {% endfor %}
     </ul>
   </section>

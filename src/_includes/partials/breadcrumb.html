@@ -1,9 +1,9 @@
 {% if prerequisitesResolved and prerequisitesResolved.length %}
   <div class="breadcrumb-prereqs">
-    <span>Depends on:</span>
+    <span>Depends on</span>
     <ul>
       {% for p in prerequisitesResolved %}
-        <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+        <li><a class="chip" href="{{ p.url }}">{{ p.title }}</a></li>
       {% endfor %}
     </ul>
   </div>

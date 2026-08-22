@@ -8,18 +8,20 @@
   <link rel="stylesheet" href="/assets/css/theme.css">
 </head>
 <body>
-  <div class="layout">
+  <div class="shell">
     {% include "partials/sidebar.html" %}
     <main>
-      {% include "partials/breadcrumb.html" %}
-      <p class="note-kind">{{ (kind or type) | capitalize }}</p>
-      <h1>{{ title }}</h1>
-      <section class="statement">
-        <h2>Statement</h2>
-        <p>{{ statement | mathify | safe }}</p>
-      </section>
-      {{ content | safe }}
-      {% include "partials/related.html" %}
+      <div class="page">
+        {% include "partials/breadcrumb.html" %}
+        <p class="note-kind">{{ (kind or type) | capitalize }}</p>
+        <h1>{{ title }}</h1>
+        <section class="statement">
+          <h2>Statement</h2>
+          <p>{{ statement | mathify | safe }}</p>
+        </section>
+        {{ content | safe }}
+        {% include "partials/related.html" %}
+      </div>
     </main>
   </div>
 </body>

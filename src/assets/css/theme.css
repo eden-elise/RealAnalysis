@@ -1,33 +1,269 @@
-/* Placeholder theme so scaffolded pages render sanely.
-   Real palette/typography/spacing decisions happen in Phase 3 —
-   everything should keep pulling from these custom properties, not
-   hardcoded values, so that phase only has to touch this file. */
+/* Self-hosted, no CDN — see DECISIONS.md (Phase 3). */
+@import url("../vendor/fonts/fraunces/500.css");
+@import url("../vendor/fonts/fraunces/600.css");
+@import url("../vendor/fonts/source-sans-3/400.css");
+@import url("../vendor/fonts/source-sans-3/600.css");
+@import url("../vendor/fonts/source-sans-3/700.css");
+@import url("../vendor/fonts/ibm-plex-mono/400.css");
+@import url("../vendor/fonts/ibm-plex-mono/500.css");
+
 :root {
-  --color-bg: #ffffff;
-  --color-text: #111111;
-  --color-accent: #2b6cb0;
-  --font-body: system-ui, sans-serif;
-  --font-mono: ui-monospace, monospace;
-  --space-unit: 1rem;
+  /* archival green — see DECISIONS.md (Phase 3) for the reasoning */
+  --paper: #eee7d6;
+  --surface: #e5dcc5;
+  --surface-hover: #ddd2b6;
+  --ink: #241f18;
+  --ink-muted: #6b6153;
+  --line: #d6cbae;
+  --accent: #2c4a30;
+  --accent-strong: #1d3220;
+  --accent-soft: #dce3d2;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-7: 4rem;
+
+  --radius: 3px;
+  --sidebar-width: 15.5rem;
+  --content-width: 38rem;
+  --figure-width: 16rem;
 }
 
-body {
+* { box-sizing: border-box; }
+
+html, body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
 }
 
-.layout {
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-strong); text-decoration: underline; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a, .chip, .navlink { transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease; }
+}
+
+.shell {
   display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
 }
 
+/* ---------- sidebar ---------- */
 .sidebar {
-  flex: 0 0 220px;
-  padding: var(--space-unit);
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  min-height: 100vh;
+  padding: var(--space-5) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
+.sidebar__home {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+.sidebar__home:hover { color: var(--accent-strong); text-decoration: none; }
+
+.navgroup { display: flex; flex-direction: column; gap: var(--space-1); }
+.navgroup-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 var(--space-2) var(--space-2);
+}
+.navlink {
+  display: block;
+  padding: var(--space-2) var(--space-2);
+  border-left: 2px solid transparent;
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.navlink:hover { color: var(--ink); background: var(--surface-hover); text-decoration: none; }
+.navlink.is-active {
+  color: var(--accent-strong);
+  border-left-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- main ---------- */
 main {
   flex: 1;
-  padding: var(--space-unit);
+  padding: var(--space-7) var(--space-7) var(--space-7) var(--space-5);
+}
+
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, var(--content-width)) var(--figure-width);
+  column-gap: var(--space-6);
+  align-items: start;
+  counter-reset: eq;
+}
+.page > * { grid-column: 1; }
+
+.page--simple {
+  display: block;
+  max-width: var(--content-width);
+}
+
+@media (max-width: 56rem) {
+  .page { grid-template-columns: minmax(0, var(--content-width)); }
+  .figure { grid-column: 1; width: 100%; max-width: var(--figure-width); margin-left: auto; margin-right: auto; }
+}
+
+/* ---------- figures (margin column) ---------- */
+.figure {
+  grid-column: 2;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space-4);
+  margin: var(--space-1) 0 var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+}
+.figure svg, .figure img, .figure video { width: 100%; height: auto; display: block; }
+.figure figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: var(--ink-muted);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- breadcrumb / chips ---------- */
+.breadcrumb-prereqs {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  font-size: 0.85rem;
+}
+.breadcrumb-prereqs span { color: var(--ink-muted); }
+.breadcrumb-prereqs ul, .related-results ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.breadcrumb-prereqs li, .related-results li { margin: 0; }
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.15rem 0.5rem;
+}
+.chip:hover { color: var(--accent-strong); border-color: var(--accent); background: var(--accent-soft); text-decoration: none; }
+
+/* ---------- note page anatomy ---------- */
+.note-kind {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--space-2);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 0 0 var(--space-5);
+  text-wrap: balance;
+}
+
+.statement {
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-6);
+}
+.statement h2 { display: none; }
+.statement p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.page h2 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: var(--space-2);
+  margin: var(--space-6) 0 var(--space-4);
+}
+.related-results h2 { margin-top: var(--space-6); }
+
+.page p { margin: 0 0 var(--space-4); color: var(--ink); }
+.page > *:last-child { margin-bottom: 0; }
+
+/* Inline math ($...$, wrapped in <eq> by markdown-it-texmath) inherits
+   body flow; KaTeX supplies its own typography via katex.min.css. */
+eq { display: inline; }
+
+/* Display math ($$...$$, wrapped in <section><eqn> by markdown-it-texmath)
+   gets numbered automatically — no author markup required, just $$...$$. */
+.page > section:has(> eqn) {
+  counter-increment: eq;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: var(--space-5) 0;
+  padding-right: var(--space-6);
+  overflow-x: auto;
+}
+.page > section:has(> eqn)::after {
+  content: "(" counter(eq) ")";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
 }

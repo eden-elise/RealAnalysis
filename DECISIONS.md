@@ -199,6 +199,84 @@ theme CSS exists in case they need explicit `display` rules.
 
 ---
 
+## 2026-08-22 — Phase 3: Visual theme — "Archival Green"
+
+**Decision:** warm archival palette (parchment background, deep forest-green
+accent), light mode only for now, locked in as CSS custom properties in
+`src/assets/css/theme.css`.
+
+**Process:** rather than describing hex codes in prose, built the theme as
+an actual mockup (published as a Claude Artifact) on a realistic note-page
+layout — sidebar, breadcrumb, statement, intuition, proof, related results —
+using real placeholder content, not lorem, and iterated on it directly
+before touching the repo. Chose green over a same-family warm accent
+(terracotta/amber) specifically because this is a link-heavy site
+(breadcrumb, related results, sidebar) and a same-family accent has less
+contrast against warm body text than a distinct hue does — green also being
+the more classic pairing for "archival" (book cloth, brass, aged paper).
+Light-mode-only was a deliberate choice, not an oversight — everything
+already routes through custom properties, so dark mode is a follow-up, not
+a rebuild, whenever it's wanted.
+
+**Typography, revised once from real feedback:** the first pass used one
+serif (Fraunces, italicized) for both headings and inline math, and Karla
+for body text. Both were wrong in practice: italic Fraunces hurt math
+legibility, and Karla's letterforms (particularly `q`) read as distracting
+rather than characterful. Fixed by narrowing Fraunces to headings only
+(weights 500/600), switching body text to Source Sans 3, and — in the
+mockup only — using STIX Two Text for simulated math, since Claude Artifacts
+can't load the real KaTeX CDN. **In the real site this doesn't apply at
+all**: math already renders through actual KaTeX (Phase 2), which ships its
+own proper math typography independent of the theme's font stack — so no
+"math font" exists in the real implementation, only in the preview.
+
+**Fonts are self-hosted, not CDN-loaded** (`@fontsource/fraunces`,
+`@fontsource/source-sans-3`, `@fontsource/ibm-plex-mono`, dev dependencies,
+passthrough-copied into `assets/vendor/fonts/`) — same reasoning as the
+KaTeX decision in Phase 2: a personal static site shouldn't depend on a
+third-party CDN staying up to render correctly.
+
+**Layout, revised once from real feedback:** initially the reading column
+was centered under generous, symmetric padding. Changed to a narrower left
+margin (content sits closer to the sidebar) and a dedicated right-hand
+**figure column** (a Tufte-style margin column) for visuals — collapses to
+single-column below ~56rem viewport width. Any `<figure class="figure">`
+dropped into a note's markdown body lands in that column automatically
+(via CSS Grid: `.page > *` defaults to the content column, `.figure`
+overrides to the second) — no shortcode needed, since markdown content
+already renders raw HTML (`markdown-it({ html: true })`, from Phase 2).
+Standing convention for what goes inside one (lazy-loading, sizing) is in
+`CLAUDE.md`.
+
+**Numbered equations, implemented without new authoring syntax:** the ask
+was for proof steps to read as distinct lines with reference numbers
+instead of one paragraph, in the style of a textbook ("by (1), ...").
+Rather than inventing special markup for this, confirmed exactly what
+`markdown-it-texmath` already emits for `$$...$$` block math —
+`<section><eqn>...</eqn></section>` — and targeted that directly with
+`.page > section:has(> eqn)` in `theme.css`, using a CSS counter for the
+`(1)`, `(2)` markers. So the numbering is automatic for any `$$...$$` a
+proof uses; nothing extra to write. (This corrects the tag order noted
+offhand in the Phase 2 entry above — confirmed via a real build rather than
+memory.)
+
+**Verification:** built the full theme into the real templates
+(`.eleventy.js`, both layouts, `theme.css`, `partials/sidebar.html`), then
+actually ran the dev server and viewed it in a browser (via Claude in
+Chrome) with disposable fixture pages — not just inspected the generated
+HTML. Caught one real bug this way: the breadcrumb/related-result `<li>`
+links were missing the `chip` class and a list-style reset, rendering as a
+bulleted plain link instead of the bordered pill from the mockup — fixed in
+`partials/breadcrumb.html`, `partials/related.html`, and `theme.css`.
+Fixtures were deleted before committing.
+
+**New file:** `src/_data/topics.js` — the sidebar's topic list now comes
+from one data file instead of being hardcoded in the sidebar partial,
+consistent with the Phase 1 principle that renaming/reordering a topic
+folder should mean editing one place, not hunting through templates.
+
+---
+
 ## 2026-08-22 — Meta: this decision log
 
 **Decision:** Keep this file (`DECISIONS.md`) updated across every phase of

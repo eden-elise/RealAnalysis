@@ -70,6 +70,14 @@ prerequisites:
 - Sidebar, topic pages, and `reference/` all render notes in dependency
   order, computed from `prerequisites` — no manual ordering anywhere.
 - Math is written as `$inline$` / `$$block$$` and rendered at build time via
-  KaTeX (self-hosted, no CDN).
+  KaTeX (self-hosted, no CDN). Block math (`$$...$$`) is automatically
+  numbered — `(1)`, `(2)`, ... — so a proof can read "by (1), ..." with no
+  extra markup.
+- To drop a visual next to a note's text, write
+  `<figure class="figure"><svg|img>...<figcaption>...</figcaption></figure>`
+  directly in the markdown body — it renders in the reserved right-hand
+  figure column automatically. See `CLAUDE.md` for the required
+  lazy-loading/performance conventions for any `<img>`/`<video>` there.
 
-Full reasoning behind this template is in `DECISIONS.md`.
+Full reasoning behind this template — and the "Archival Green" visual
+theme (palette, typography, layout) — is in `DECISIONS.md`.

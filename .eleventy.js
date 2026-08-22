@@ -44,6 +44,16 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     "node_modules/katex/dist/katex.min.css": "assets/vendor/katex/katex.min.css",
     "node_modules/katex/dist/fonts": "assets/vendor/katex/fonts",
+    "node_modules/@fontsource/fraunces/500.css": "assets/vendor/fonts/fraunces/500.css",
+    "node_modules/@fontsource/fraunces/600.css": "assets/vendor/fonts/fraunces/600.css",
+    "node_modules/@fontsource/fraunces/files": "assets/vendor/fonts/fraunces/files",
+    "node_modules/@fontsource/source-sans-3/400.css": "assets/vendor/fonts/source-sans-3/400.css",
+    "node_modules/@fontsource/source-sans-3/600.css": "assets/vendor/fonts/source-sans-3/600.css",
+    "node_modules/@fontsource/source-sans-3/700.css": "assets/vendor/fonts/source-sans-3/700.css",
+    "node_modules/@fontsource/source-sans-3/files": "assets/vendor/fonts/source-sans-3/files",
+    "node_modules/@fontsource/ibm-plex-mono/400.css": "assets/vendor/fonts/ibm-plex-mono/400.css",
+    "node_modules/@fontsource/ibm-plex-mono/500.css": "assets/vendor/fonts/ibm-plex-mono/500.css",
+    "node_modules/@fontsource/ibm-plex-mono/files": "assets/vendor/fonts/ibm-plex-mono/files",
   });
 
   eleventyConfig.setLibrary("md", md);

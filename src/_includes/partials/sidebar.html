@@ -1,8 +1,19 @@
-<nav class="sidebar" aria-label="Site navigation">
+<aside class="sidebar" aria-label="Site navigation">
   <a class="sidebar__home" href="/">Real Analysis Hub</a>
-  <ul>
-    {% for page in collections.notes %}
-      <li><a href="{{ page.url }}">{{ page.data.title or page.fileSlug }}</a></li>
+
+  <nav class="navgroup">
+    <p class="navgroup-label">Topics</p>
+    {% for topic in topics %}
+      <a class="navlink {% if page.url == topic.url %}is-active{% endif %}" href="{{ topic.url }}">{{ topic.title }}</a>
     {% endfor %}
-  </ul>
-</nav>
+  </nav>
+
+  {% if collections.notes.length %}
+    <nav class="navgroup">
+      <p class="navgroup-label">Notes</p>
+      {% for note in collections.notes %}
+        <a class="navlink {% if page.url == note.url %}is-active{% endif %}" href="{{ note.url }}">{{ note.data.title or note.fileSlug }}</a>
+      {% endfor %}
+    </nav>
+  {% endif %}
+</aside>
