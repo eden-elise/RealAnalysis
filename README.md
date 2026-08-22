@@ -81,3 +81,22 @@ prerequisites:
 
 Full reasoning behind this template — and the "Archival Green" visual
 theme (palette, typography, layout) — is in `DECISIONS.md`.
+
+## Adding a new note page
+
+1. Pick the topic folder it belongs to (`src/<topic>/`) — see
+   `src/_data/topics.js` for the current list, or `CONTRIBUTING.md` for
+   when a new topic folder is warranted.
+2. Create a new `.md` file in that folder. The filename only affects the
+   URL — it plays no part in ordering or nav.
+3. Fill in the frontmatter (see the template above). Pick a short,
+   descriptive, kebab-case `id` — once other pages start referencing it in
+   their `prerequisites`, treat it as permanent (see `CONTRIBUTING.md`).
+4. Write the body: `## Intuition`, then `## Proof` if it's a theorem-type
+   page. Nothing else is structurally required.
+5. Run `npm start` and check the page — the sidebar, breadcrumb, and
+   `reference/` entry all pick it up automatically from its frontmatter,
+   nothing else to wire up by hand.
+
+Full rules for taxonomy, ids, and what never needs hand-maintaining are in
+`CONTRIBUTING.md`.

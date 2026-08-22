@@ -320,6 +320,43 @@ Standing convention recorded in `CLAUDE.md` so this isn't re-litigated
 
 ---
 
+## 2026-08-22 — Phase 5: Documentation — CONTRIBUTING.md, README completed
+
+**Decision:** added `CONTRIBUTING.md` as a distinct doc from this file,
+with a clear division of labor between the three docs:
+
+- `CONTRIBUTING.md` — the ruleset. What to do (taxonomy, id rules,
+  prerequisites, template, math, visuals) — prescriptive, not narrative.
+- `DECISIONS.md` (this file) — the history. Why each rule exists, what was
+  considered, where AI assistance was involved — append-only, dated.
+- `README.md` — the mechanics. Concrete steps to actually add a page.
+
+**Why split rules from history:** `DECISIONS.md` is deliberately
+append-only and narrative (a log of what happened, in order) — good for
+understanding *why* something is the way it is, bad for quickly checking
+"what's the rule" six months from now without reading a growing history.
+`CONTRIBUTING.md` is the opposite: current-state-only, scannable, no
+narrative — exactly what the brief asked for as a doc "so I don't drift
+from the structure." Kept them separate rather than merging, so each can
+stay good at its one job.
+
+**Content captured in `CONTRIBUTING.md`** that wasn't explicit anywhere
+else yet: a heuristic for when a new topic folder is warranted (multiple
+pages that don't fit an existing topic — not one page), the rule that
+`prerequisites` should list only *direct* dependencies (transitive ones are
+already covered by the graph walk, restating them is redundant and a
+maintenance risk), and an explicit "what's computed, never hand-maintained"
+checklist (nav order, `reference/` contents, backlinks, equation numbers)
+as a quick self-check against accidentally fighting the automation built in
+Phases 2–3.
+
+**README** got the "how to add a new note page" walkthrough the brief
+asked for (deferred since Phase 1, once the template existed to document)
+— a concrete numbered sequence rather than just the frontmatter reference
+that was already there.
+
+---
+
 ## 2026-08-22 — Meta: this decision log
 
 **Decision:** Keep this file (`DECISIONS.md`) updated across every phase of
