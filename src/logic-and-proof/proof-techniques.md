@@ -5,6 +5,7 @@ id: proof-techniques
 title: Proof Techniques
 prerequisites:
   - peano-axioms
+  - lowest-terms
 ---
 A standing reference for the handful of proof patterns that show up
 constantly once real analysis gets going — not a page about $\mathbb{R}$
@@ -79,11 +80,12 @@ the impossibility can only have come from the assumed negation, so the
 conclusion must hold after all.
 
 *Example:* $\sqrt{2}$ is irrational. Suppose not — suppose
-$\sqrt{2} = p/q$ for integers $p, q$ with no common factor. Squaring gives
-$p^2 = 2q^2$, so $p^2$ is even, so $p$ is even (previous example) — write
-$p = 2m$. Then $4m^2 = 2q^2$, so $q^2 = 2m^2$, so $q$ is even too. But
-then $p$ and $q$ share a factor of $2$, contradicting the assumption that
-they share no common factor. So no such $p/q$ exists.
+$\sqrt{2} = p/q$ for integers $p, q$
+[in lowest terms](/logic-and-proof/lowest-terms/) (no common factor).
+Squaring gives $p^2 = 2q^2$, so $p^2$ is even, so $p$ is even (previous
+example) — write $p = 2m$. Then $4m^2 = 2q^2$, so $q^2 = 2m^2$, so $q$ is
+even too. But then $p$ and $q$ share a factor of $2$, contradicting the
+assumption that they were in lowest terms. So no such $p/q$ exists.
 
 Proof by contradiction is strictly more powerful than contraposition in
 principle (it gets to assume the *entire* negated claim, not just a
