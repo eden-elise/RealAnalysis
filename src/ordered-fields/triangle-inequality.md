@@ -7,17 +7,13 @@ statement: "For all $a, b \\in \\mathbb{R}$, $|a + b| \\leq |a| + |b|$."
 prerequisites:
   - field-axioms
   - order-axioms
+  - absolute-value
+  - absolute-value-bound
 ---
 ## Intuition
 
-The **absolute value** of $a \in \mathbb{R}$ is defined by
-
-$$
-|a| = \begin{cases} a & a \geq 0 \\ -a & a < 0 \end{cases}
-$$
-
-— whichever of $a$ or $-a$ is the nonnegative one. Geometrically, $|a|$ is
-$a$'s distance from $0$, and $|a - b|$ is the distance between $a$ and $b$.
+Geometrically, [$|a|$](/ordered-fields/absolute-value/) is $a$'s distance
+from $0$, and $|a - b|$ is the distance between $a$ and $b$.
 Read that way, the triangle inequality is exactly the fact it's named
 for: going from $0$ to $a + b$ directly is never longer than going from
 $0$ to $a$ and then from $a$ to $a + b$ (a displacement of length $|b|$) —
@@ -27,24 +23,19 @@ distance through any third point.
 
 <figure class="figure"><svg viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Number line showing that the direct hop from 0 to a+b is no longer than the two-step detour through a"><line x1="20" y1="90" x2="240" y2="90" stroke="var(--line)" stroke-width="1.5"/><circle cx="40" cy="90" r="3" fill="var(--ink)"/><circle cx="120" cy="90" r="3" fill="var(--ink)"/><circle cx="210" cy="90" r="3" fill="var(--ink)"/><text x="40" y="108" text-anchor="middle" font-size="10" fill="var(--ink)" style="font-family:var(--font-mono)">0</text><text x="120" y="108" text-anchor="middle" font-size="10" fill="var(--ink)" style="font-family:var(--font-mono)">a</text><text x="210" y="108" text-anchor="middle" font-size="10" fill="var(--ink)" style="font-family:var(--font-mono)">a+b</text><path d="M40,90 Q80,55 120,90" fill="none" stroke="var(--ink-muted)" stroke-width="1.5" stroke-dasharray="4,3"/><text x="80" y="48" text-anchor="middle" font-size="10" fill="var(--ink-muted)" style="font-family:var(--font-mono)">|a|</text><path d="M120,90 Q165,55 210,90" fill="none" stroke="var(--ink-muted)" stroke-width="1.5" stroke-dasharray="4,3"/><text x="165" y="48" text-anchor="middle" font-size="10" fill="var(--ink-muted)" style="font-family:var(--font-mono)">|b|</text><path d="M40,90 Q125,132 210,90" fill="none" stroke="var(--accent-strong)" stroke-width="2"/><text x="125" y="144" text-anchor="middle" font-size="10" font-weight="600" fill="var(--accent-strong)" style="font-family:var(--font-mono)">|a+b|</text></svg><figcaption>Shown for a, b &gt; 0: the two-hop detour through a covers distance |a| + |b|; the direct hop covers |a+b| — never longer.</figcaption></figure>
 
-Two facts fall directly out of the definition and get used constantly, not
-just here:
+The proof leans on two facts cited from elsewhere: the
+[self-bound](/ordered-fields/absolute-value/)
 
 $$
--|a| \leq a \leq |a|
+-|a| \leq a \leq |a|,
 $$
 
-(check both cases: if $a \geq 0$ then $a = |a|$ and
-$-|a| = -a \leq 0 \leq a$; if $a < 0$ then $-a = |a|$ and
-$a \leq 0 \leq -a = |a|$, while $-|a| = a$) — and, for $c \geq 0$,
+and the [absolute value bound](/ordered-fields/absolute-value-bound/):
+for $c \geq 0$,
 
 $$
 |x| \leq c \iff -c \leq x \leq c.
 $$
-
-The second is just unpacking the definition of $|x|$ by cases on the sign
-of $x$ again: if $x \geq 0$ the claim is $x \leq c$; if $x < 0$ it's
-$-x \leq c$, i.e. $x \geq -c$; together, exactly $-c \leq x \leq c$.
 
 ## Proof
 
