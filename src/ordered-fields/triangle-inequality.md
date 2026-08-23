@@ -39,7 +39,8 @@ $$
 
 ## Proof
 
-Applying $-|a| \leq a \leq |a|$ to $a$ and separately to $b$ gives
+Let $a, b \in \mathbb{R}$. Applying $-|a| \leq a \leq |a|$ to $a$ and
+separately to $b$ gives
 
 $$
 -|a| \leq a \leq |a| \quad \text{and} \quad -|b| \leq b \leq |b|.
@@ -65,10 +66,13 @@ $$
 |a + b| \leq |a| + |b|. \qquad \blacksquare
 $$
 
-**Reverse triangle inequality.** The same two facts give
-$||a| - |b|| \leq |a - b|$ almost for free. Writing $a = (a - b) + b$ and
-applying what was just proved, $|a| \leq |a - b| + |b|$, so
-$|a| - |b| \leq |a - b|$. Swapping the roles of $a$ and $b$ gives
-$|b| - |a| \leq |b - a| = |a - b|$ the same way. Together these say
-$-|a - b| \leq |a| - |b| \leq |a - b|$, so the bound criterion (with
-$x = |a| - |b|$, $c = |a - b|$) gives $||a| - |b|| \leq |a - b|$.
+**Reverse triangle inequality.** For all $a, b \in \mathbb{R}$,
+$\big||a| - |b|\big| \leq |a - b|$.
+
+**Proof.** The same two facts give this almost for free. Writing
+$a = (a - b) + b$ and applying what was just proved,
+$|a| \leq |a - b| + |b|$, so $|a| - |b| \leq |a - b|$. Swapping the roles
+of $a$ and $b$ gives $|b| - |a| \leq |b - a| = |a - b|$ the same way.
+Together these say $-|a - b| \leq |a| - |b| \leq |a - b|$, so the bound
+criterion (with $x = |a| - |b|$, $c = |a - b|$) gives
+$\big||a| - |b|\big| \leq |a - b|$. $\qquad\blacksquare$

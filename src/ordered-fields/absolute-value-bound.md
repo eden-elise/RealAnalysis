@@ -24,6 +24,8 @@ leans on it twice).
 
 ## Proof
 
+Let $a \geq 0$ and $x \in \mathbb{R}$.
+
 ($\implies$) Suppose $|x| \leq a$. By cases on the sign of $x$:
 
 - If $x \geq 0$: $|x| = x$, so $x \leq a$. Also $a \geq 0$ gives

@@ -56,8 +56,10 @@ Assume the hypothesis, chain forward through implications, arrive at the
 conclusion. No trick — just the default shape of a proof, worth naming
 because the other techniques below are all departures from it.
 
-*Example:* if $n$ is even, so is $n^2$. Write $n = 2k$ for some integer
-$k$; then $n^2 = 4k^2 = 2(2k^2)$, which is even.
+*Example:* if $n$ is even, then $n^2$ is even.
+
+**Proof.** Let $n$ be an even integer. Then $n = 2k$ for some integer
+$k$, so $n^2 = 4k^2 = 2(2k^2)$, which is even. $\qquad\blacksquare$
 
 ## Proof by Contraposition
 
@@ -66,10 +68,14 @@ because the two are logically equivalent (above). Useful whenever the
 negated conclusion is easier to get a grip on than the conclusion itself.
 
 *Example:* if $n^2$ is even, then $n$ is even. Directly, "$n^2$ even"
-doesn't obviously constrain $n$ — but the contrapositive does: if $n$ is
-odd, write $n = 2k+1$, so $n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1$, which
-is odd. That proves "$n$ odd $\implies n^2$ odd," i.e. the contrapositive
-of the original claim.
+doesn't obviously constrain $n$ — but the contrapositive does: "$n$ odd
+$\implies n^2$ odd" is easy to show directly, and proving it proves the
+original claim.
+
+**Proof.** We prove the contrapositive: if $n$ is odd, then $n^2$ is odd.
+Let $n$ be an odd integer. Then $n = 2k+1$ for some integer $k$, so
+$n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1$, which is odd.
+$\qquad\blacksquare$
 
 ## Proof by Contradiction
 
@@ -79,13 +85,15 @@ or some other flatly false fact. Since the hypotheses are taken as given,
 the impossibility can only have come from the assumed negation, so the
 conclusion must hold after all.
 
-*Example:* $\sqrt{2}$ is irrational. Suppose not — suppose
-$\sqrt{2} = p/q$ for integers $p, q$
+*Example:* $\sqrt{2}$ is irrational.
+
+**Proof.** Suppose not. Then $\sqrt{2} = p/q$ for some integers $p, q$
 [in lowest terms](/logic-and-proof/lowest-terms/) (no common factor).
 Squaring gives $p^2 = 2q^2$, so $p^2$ is even, so $p$ is even (previous
-example) — write $p = 2m$. Then $4m^2 = 2q^2$, so $q^2 = 2m^2$, so $q$ is
-even too. But then $p$ and $q$ share a factor of $2$, contradicting the
-assumption that they were in lowest terms. So no such $p/q$ exists.
+example) — write $p = 2m$ for some integer $m$. Then $4m^2 = 2q^2$, so
+$q^2 = 2m^2$, so $q$ is even too. But then $p$ and $q$ share a factor of
+$2$, contradicting the assumption that they were in lowest terms. So no
+such $p/q$ exists, i.e. $\sqrt{2}$ is irrational. $\qquad\blacksquare$
 
 Proof by contradiction is strictly more powerful than contraposition in
 principle (it gets to assume the *entire* negated claim, not just a
@@ -112,12 +120,20 @@ natural number. Induction as a proof technique isn't a separate
 assumption; it's that axiom, read as a recipe.
 
 *Example:* $1 + 2 + \cdots + n = \frac{n(n+1)}{2}$ for every
-$n \in \mathbb{N}$. Base case $n = 1$: both sides equal $1$. Inductive
-step: assume $1 + \cdots + n = \frac{n(n+1)}{2}$ (the *inductive
-hypothesis*), and add $n+1$ to both sides —
+$n \in \mathbb{N}$.
+
+**Proof.** We proceed by induction on $n$.
+
+*Base case* ($n = 1$): both sides equal $1$.
+
+*Inductive step:* let $n \in \mathbb{N}$ and assume
+$1 + \cdots + n = \frac{n(n+1)}{2}$ (the *inductive hypothesis*). Adding
+$n+1$ to both sides gives
 $1 + \cdots + n + (n+1) = \frac{n(n+1)}{2} + (n+1) = \frac{(n+1)(n+2)}{2}$,
-which is the claim at $n+1$. By induction, the formula holds for every
-$n$.
+which is the claim at $n+1$.
+
+By induction, the formula holds for every $n \in \mathbb{N}$.
+$\qquad\blacksquare$
 
 **Strong induction** replaces the inductive step with "assume $P(k)$ for
 *every* $k \leq n$, prove $P(n+1)$" — more to assume, which makes some
