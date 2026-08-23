@@ -69,6 +69,23 @@ module.exports = function (eleventyConfig) {
     notes.filter((note) => note.url.startsWith(topicUrl))
   );
 
+  // Short mono tag for a note's `kind` (or `type` when no kind is set),
+  // shown next to its title anywhere notes are listed as links, so the
+  // kind of result is legible without opening the page.
+  const KIND_ABBREV = {
+    axiom: "AX",
+    definition: "DEF",
+    theorem: "THM",
+    technique: "TQ",
+    lemma: "LEM",
+    corollary: "COR",
+    proposition: "PROP",
+  };
+  eleventyConfig.addFilter(
+    "kindAbbrev",
+    (kind) => KIND_ABBREV[kind] || (kind || "?").slice(0, 4).toUpperCase()
+  );
+
   // Every non-landing page, in dependency order, with cross-links resolved.
   // `prerequisites` is the only hand-authored relationship (an array of
   // `id`s); `usedByResolved` ("related results") is its computed inverse —

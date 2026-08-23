@@ -118,6 +118,16 @@ a:focus-visible, button:focus-visible {
 .navtree-topic { margin-bottom: var(--space-1); }
 .navtree-notes { display: flex; flex-direction: column; border-left: 1px solid var(--line); margin-left: var(--space-3); }
 .navlink--note { padding-left: var(--space-3); font-size: 0.82rem; }
+.navlink-kind {
+  display: inline-block;
+  min-width: 2.75em;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: inherit;
+  opacity: 0.75;
+}
 .navlink.is-active {
   color: var(--accent-strong);
   border-left-color: var(--accent);

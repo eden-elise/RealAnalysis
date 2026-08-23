@@ -10,7 +10,7 @@
         {% if topicNotes.length %}
           <div class="navtree-notes">
             {% for note in topicNotes %}
-              <a class="navlink navlink--note {% if page.url == note.url %}is-active{% endif %}" href="{{ note.url }}">{{ note.data.title or note.fileSlug }}</a>
+              <a class="navlink navlink--note {% if page.url == note.url %}is-active{% endif %}" href="{{ note.url }}"><span class="navlink-kind">{{ (note.data.kind or note.data.type) | kindAbbrev }}</span>{{ note.data.title or note.fileSlug }}</a>
             {% endfor %}
           </div>
         {% endif %}

@@ -10,7 +10,7 @@ title: Axioms
 {% if notes.length %}
   <ul class="note-list">
     {% for note in notes %}
-      <li><a href="{{ note.url }}">{{ note.data.title }}</a></li>
+      <li><a href="{{ note.url }}"><span class="navlink-kind">{{ (note.data.kind or note.data.type) | kindAbbrev }}</span>{{ note.data.title }}</a></li>
     {% endfor %}
   </ul>
 {% else %}
