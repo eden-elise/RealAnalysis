@@ -34,7 +34,7 @@
   --radius: 3px;
   --sidebar-width: 15.5rem;
   --content-width: 38rem;
-  --figure-width: 16rem;
+  --figure-width: 22rem;
 }
 
 * { box-sizing: border-box; }
@@ -119,17 +119,20 @@ a:focus-visible, button:focus-visible {
 /* ---------- main ---------- */
 main {
   flex: 1;
-  padding: var(--space-7) var(--space-7) var(--space-7) var(--space-5);
+  padding: var(--space-7) var(--space-5) var(--space-7) var(--space-5);
 }
 
 .page {
-  display: grid;
-  grid-template-columns: minmax(0, var(--content-width)) var(--figure-width);
-  column-gap: var(--space-6);
-  align-items: start;
+  display: block;
+  max-width: calc(var(--content-width) + var(--space-6) + var(--figure-width));
   counter-reset: eq;
 }
-.page > * { grid-column: 1; }
+/* Text columns get a fixed reading width regardless of a floated figure
+   beside them — a float only ever narrows the *line boxes* of content that
+   shares its vertical range, never the row height of unrelated siblings,
+   so short text never gets stretched with a blank gap to clear a tall
+   figure the way a CSS-grid row would force. */
+.page > *:not(.figure) { max-width: var(--content-width); }
 
 .page--simple {
   display: block;
@@ -137,18 +140,19 @@ main {
 }
 
 @media (max-width: 56rem) {
-  .page { grid-template-columns: minmax(0, var(--content-width)); }
-  .figure { grid-column: 1; width: 100%; max-width: var(--figure-width); margin-left: auto; margin-right: auto; }
+  .page { max-width: var(--content-width); }
+  .figure { float: none; width: 100%; max-width: var(--figure-width); margin: var(--space-4) auto; }
 }
 
 /* ---------- figures (margin column) ---------- */
 .figure {
-  grid-column: 2;
+  float: right;
+  width: var(--figure-width);
   border: 1px dashed var(--line);
   border-radius: var(--radius);
   background: var(--surface);
   padding: var(--space-4);
-  margin: var(--space-1) 0 var(--space-4);
+  margin: var(--space-1) 0 var(--space-4) var(--space-6);
   display: flex;
   flex-direction: column;
   align-items: center;
