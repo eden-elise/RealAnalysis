@@ -1,0 +1,21 @@
+---
+layout: landing-layout.html
+landing: true
+title: Logic & Proof
+---
+<h1>Logic & Proof</h1>
+<p>The proof techniques real analysis leans on constantly &mdash; direct
+proof, contraposition, contradiction, induction &mdash; collected here as
+a standing reference. This isn't itself part of the real-number dependency
+chain; it's the discrete-math toolbox everything else is written with.</p>
+
+{% set notes = collections.notes | inTopic(page.url) %}
+{% if notes.length %}
+  <ul class="note-list">
+    {% for note in notes %}
+      <li><a href="{{ note.url }}">{{ note.data.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p><em>No pages yet.</em></p>
+{% endif %}

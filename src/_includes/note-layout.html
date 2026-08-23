@@ -15,21 +15,23 @@
         {% include "partials/breadcrumb.html" %}
         <p class="note-kind">{{ (kind or type) | capitalize }}</p>
         <h1>{{ title }}</h1>
-        <section class="statement">
-          <h2>Statement</h2>
-          {% if statement is string %}
-            <p>{{ statement | mathify | safe }}</p>
-          {% else %}
-            <p>{{ statement[0] | mathify | safe }}</p>
-            {% if statement.length > 1 %}
-              <ul class="statement-list">
-                {% for clause in statement %}
-                  {% if not loop.first %}<li>{{ clause | mathify | safe }}</li>{% endif %}
-                {% endfor %}
-              </ul>
+        {% if statement %}
+          <section class="statement">
+            <h2>Statement</h2>
+            {% if statement is string %}
+              <p>{{ statement | mathify | safe }}</p>
+            {% else %}
+              <p>{{ statement[0] | mathify | safe }}</p>
+              {% if statement.length > 1 %}
+                <ul class="statement-list">
+                  {% for clause in statement %}
+                    {% if not loop.first %}<li>{{ clause | mathify | safe }}</li>{% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
             {% endif %}
-          {% endif %}
-        </section>
+          </section>
+        {% endif %}
         {{ content | safe }}
         {% include "partials/related.html" %}
       </div>

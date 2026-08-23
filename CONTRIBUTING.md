@@ -52,7 +52,7 @@ file. Don't just quietly drift from it.
 
 ## Note page template
 
-- `type`: `axiom` | `definition` | `theorem`.
+- `type`: `axiom` | `definition` | `theorem` | `technique`.
 - `kind` (theorem-type only, optional): `lemma` | `corollary` |
   `proposition` | `theorem` — a display label only, doesn't change the
   template shape.
@@ -68,6 +68,15 @@ file. Don't just quietly drift from it.
   proof.
 - **Theorems** (incl. lemma/corollary/proposition): statement +
   `## Intuition` + `## Proof`, `prerequisites` present.
+- **Techniques**: meta/toolbox pages about how to prove things (logic,
+  induction, contradiction, ...) rather than claims about $\mathbb{R}$
+  itself — currently just `logic-and-proof/proof-techniques.md`.
+  `statement` is omitted entirely (the layout skips the statement box when
+  it's absent) since there's no single formal claim to state. Body is
+  freeform `##` sections instead of the fixed Intuition/Proof shape —
+  whatever sections the technique needs. `prerequisites` is used when a
+  technique's validity traces to a specific axiom (e.g. induction cites
+  `peano-axioms`).
 - `statement` goes in frontmatter, as complete, standalone sentence(s) —
   it's shown on its own (no surrounding context) in `reference/`, so it
   needs to make sense in isolation.
@@ -88,6 +97,13 @@ file. Don't just quietly drift from it.
 ## Math
 
 - `$inline$` and `$$block$$`, rendered at build time via KaTeX.
+- **An inline `$...$` span must not contain a line break in the source.**
+  markdown-it-texmath's inline matcher doesn't match across an embedded
+  newline, so a formula that happens to wrap mid-expression silently
+  fails to render — it shows up as literal `$...$` text instead of math,
+  with no build error. If a formula is long, either keep it on one line
+  regardless of prose wrapping, or switch it to `$$block$$` (which does
+  handle multi-line content fine).
 - Block equations (`$$...$$`) number themselves automatically — write
   plain `$$...$$` and reference "by (1)" in the prose that follows. Never
   hand-number; there's no markup for it, the numbering is a CSS counter

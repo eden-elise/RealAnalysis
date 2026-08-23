@@ -14,7 +14,7 @@ quick lookup of building blocks when working a proof.</p>
         <a href="{{ page.url }}">{{ page.data.title }}</a>
         {% if page.data.statement is string %}
           <p>{{ page.data.statement | mathify | safe }}</p>
-        {% else %}
+        {% elif page.data.statement %}
           <p>{{ page.data.statement | join(" ") | mathify | safe }}</p>
         {% endif %}
       </li>
