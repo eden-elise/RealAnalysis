@@ -71,6 +71,16 @@ file. Don't just quietly drift from it.
 - `statement` goes in frontmatter, as complete, standalone sentence(s) —
   it's shown on its own (no surrounding context) in `reference/`, so it
   needs to make sense in isolation.
+- `statement` can be a single string, or a YAML list when an axiom/
+  statement has multiple independent clauses (common for axiom pages).
+  The first list item is the lead-in sentence, rendered as prose; the
+  rest render as a bulleted list in the statement box, which reads far
+  easier than semicolon-chaining everything into one paragraph. In
+  `reference/`, a list statement is rendered by joining all items with a
+  space back into one paragraph, so still write each item as a complete,
+  self-contained sentence. Only bother listifying when there are genuinely
+  multiple clauses — a single-sentence statement (e.g. the completeness
+  axiom) stays a plain string.
 - Body content is just `## Intuition` then `## Proof`, in that order —
   that's the entire structural convention. Nothing else is required or
   auto-generated from the body.

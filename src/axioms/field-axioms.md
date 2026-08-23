@@ -3,7 +3,12 @@ layout: note-layout.html
 type: axiom
 id: field-axioms
 title: Field Axioms
-statement: "$\\mathbb{R}$, together with addition and multiplication, is a field: for all $a, b, c \\in \\mathbb{R}$, addition and multiplication are each commutative and associative; there exist distinct identities $0$ and $1$ with $a + 0 = a$ and $a \\cdot 1 = a$; every $a$ has an additive inverse $-a$ with $a + (-a) = 0$, and every nonzero $a$ has a multiplicative inverse $a^{-1}$ with $a \\cdot a^{-1} = 1$; and multiplication distributes over addition: $a(b + c) = ab + ac$."
+statement:
+  - "$\\mathbb{R}$, together with addition and multiplication, is a field. For all $a, b, c \\in \\mathbb{R}$:"
+  - "Addition and multiplication are each commutative and associative."
+  - "There exist distinct identities $0$ and $1$ with $a + 0 = a$ and $a \\cdot 1 = a$."
+  - "Every $a$ has an additive inverse $-a$ with $a + (-a) = 0$, and every nonzero $a$ has a multiplicative inverse $a^{-1}$ with $a \\cdot a^{-1} = 1$."
+  - "Multiplication distributes over addition: $a(b + c) = ab + ac$."
 ---
 ## Intuition
 

@@ -12,7 +12,11 @@ quick lookup of building blocks when working a proof.</p>
     {% for page in collections.notes %}
       <li>
         <a href="{{ page.url }}">{{ page.data.title }}</a>
-        <p>{{ page.data.statement | mathify | safe }}</p>
+        {% if page.data.statement is string %}
+          <p>{{ page.data.statement | mathify | safe }}</p>
+        {% else %}
+          <p>{{ page.data.statement | join(" ") | mathify | safe }}</p>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>

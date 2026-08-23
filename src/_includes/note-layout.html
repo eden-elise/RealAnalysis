@@ -17,7 +17,18 @@
         <h1>{{ title }}</h1>
         <section class="statement">
           <h2>Statement</h2>
-          <p>{{ statement | mathify | safe }}</p>
+          {% if statement is string %}
+            <p>{{ statement | mathify | safe }}</p>
+          {% else %}
+            <p>{{ statement[0] | mathify | safe }}</p>
+            {% if statement.length > 1 %}
+              <ul class="statement-list">
+                {% for clause in statement %}
+                  {% if not loop.first %}<li>{{ clause | mathify | safe }}</li>{% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endif %}
         </section>
         {{ content | safe }}
         {% include "partials/related.html" %}

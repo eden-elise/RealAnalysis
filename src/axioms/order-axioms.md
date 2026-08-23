@@ -3,7 +3,12 @@ layout: note-layout.html
 type: axiom
 id: order-axioms
 title: Order Axioms
-statement: "$\\mathbb{R}$ carries a relation $<$ making it an ordered field: for all $a, b, c \\in \\mathbb{R}$, exactly one of $a < b$, $a = b$, or $b < a$ holds (trichotomy); $a < b$ and $b < c$ together imply $a < c$ (transitivity); $a < b$ implies $a + c < b + c$ for every $c$ (compatibility with addition); and $a < b$ together with $c > 0$ imply $ac < bc$ (compatibility with multiplication)."
+statement:
+  - "$\\mathbb{R}$ carries a relation $<$ making it an ordered field. For all $a, b, c \\in \\mathbb{R}$:"
+  - "Exactly one of $a < b$, $a = b$, or $b < a$ holds (trichotomy)."
+  - "$a < b$ and $b < c$ together imply $a < c$ (transitivity)."
+  - "$a < b$ implies $a + c < b + c$ for every $c$ (compatibility with addition)."
+  - "$a < b$ together with $c > 0$ imply $ac < bc$ (compatibility with multiplication)."
 prerequisites:
   - field-axioms
 ---
