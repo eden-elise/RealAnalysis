@@ -4,4 +4,15 @@ landing: true
 title: Axioms
 ---
 <h1>Axioms</h1>
-<p><em>Placeholder landing page — foundational assumptions go here, content coming in a later phase.</em></p>
+<p>Foundational assumptions — nothing else. Everything else on this site is built up from these.</p>
+
+{% set notes = collections.notes | inTopic(page.url) %}
+{% if notes.length %}
+  <ul class="note-list">
+    {% for note in notes %}
+      <li><a href="{{ note.url }}">{{ note.data.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p><em>No pages yet — content coming in a later phase.</em></p>
+{% endif %}

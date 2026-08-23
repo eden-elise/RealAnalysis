@@ -56,8 +56,14 @@ file. Don't just quietly drift from it.
 - `kind` (theorem-type only, optional): `lemma` | `corollary` |
   `proposition` | `theorem` — a display label only, doesn't change the
   template shape.
-- **Axioms**: statement + `## Intuition` only. No `prerequisites` (they're
-  the base case), no proof.
+- **Axioms**: statement + `## Intuition` only, no proof. `prerequisites` is
+  normally empty — axioms are the base case. The one exception: an axiom
+  whose statement relies on already-defined terminology (e.g. the
+  completeness axiom can't be stated without "supremum," defined on
+  `bounds-suprema`) lists that definition page as a prerequisite. It's
+  still axiomatic — nothing is being derived — the link exists so the page
+  is readable and so `reference/`/breadcrumbs don't show a term used
+  before it's defined.
 - **Definitions**: statement + `## Intuition`. `prerequisites` optional. No
   proof.
 - **Theorems** (incl. lemma/corollary/proposition): statement +

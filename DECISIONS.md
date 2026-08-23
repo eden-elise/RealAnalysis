@@ -357,6 +357,39 @@ that was already there.
 
 ---
 
+## 2026-08-22 — Phase 6 content: axiom `prerequisites` rule amended
+
+**Context:** while writing `completeness-axiom`, hit a direct conflict with
+the Phase 2 note-page template rule that axioms take no `prerequisites`
+("they're the base case"). The completeness axiom's statement is "every
+nonempty subset of $\mathbb{R}$ bounded above has a supremum in
+$\mathbb{R}$" — it cannot be written without the term *supremum*, which is
+defined on `bounds-suprema` (a `definition`-type page, not an axiom).
+
+**Decision:** amended the rule rather than working around it. Axioms still
+default to no `prerequisites`; the exception is an axiom whose statement
+uses already-defined terminology, which now lists that definition page as
+a prerequisite. `completeness-axiom` lists `bounds-suprema`.
+
+**Why not the alternative (re-explain "supremum" inline instead):**
+considered leaving the rule untouched and just re-defining supremum inline
+in `completeness-axiom`'s own Intuition section. Rejected — it would
+duplicate content that already has a dedicated page, and drop the
+breadcrumb/backlink connection between the two pages for no real benefit.
+The amended rule is also narrower than it might sound: it doesn't weaken
+"axioms are the base case" logically (nothing is being *derived* from
+`bounds-suprema` — a definition asserts nothing that could serve as a
+premise), it only means the prerequisite graph also captures "you need
+this vocabulary to read this page," which is what it was already doing
+for definition/theorem pages.
+
+**Process note:** per `CONTRIBUTING.md`'s own instruction ("if a rule here
+ever feels wrong... don't just quietly drift from it"), this was raised as
+an explicit question rather than silently overridden or silently worked
+around.
+
+---
+
 ## 2026-08-22 — Meta: this decision log
 
 **Decision:** Keep this file (`DECISIONS.md`) updated across every phase of

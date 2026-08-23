@@ -4,4 +4,14 @@ landing: true
 title: Continuity
 ---
 <h1>Continuity</h1>
-<p><em>Placeholder landing page — content coming in a later phase.</em></p>
+
+{% set notes = collections.notes | inTopic(page.url) %}
+{% if notes.length %}
+  <ul class="note-list">
+    {% for note in notes %}
+      <li><a href="{{ note.url }}">{{ note.data.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p><em>No pages yet — content coming in a later phase.</em></p>
+{% endif %}

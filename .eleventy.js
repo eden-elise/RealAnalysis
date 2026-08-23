@@ -62,6 +62,13 @@ module.exports = function (eleventyConfig) {
   // markdown+KaTeX pipeline as page body content, without wrapping it in <p>.
   eleventyConfig.addFilter("mathify", (content) => md.renderInline(content || ""));
 
+  // A topic landing page's own note list, in the same dependency order as
+  // everywhere else — filtered from the one global `notes` collection
+  // rather than hand-maintained per topic folder.
+  eleventyConfig.addFilter("inTopic", (notes, topicUrl) =>
+    notes.filter((note) => note.url.startsWith(topicUrl))
+  );
+
   // Every non-landing page, in dependency order, with cross-links resolved.
   // `prerequisites` is the only hand-authored relationship (an array of
   // `id`s); `usedByResolved` ("related results") is its computed inverse —

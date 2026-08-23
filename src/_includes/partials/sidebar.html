@@ -1,19 +1,20 @@
 <aside class="sidebar" aria-label="Site navigation">
   <a class="sidebar__home" href="/">Real Analysis Hub</a>
 
-  <nav class="navgroup">
+  <nav class="navgroup navtree">
     <p class="navgroup-label">Topics</p>
     {% for topic in topics %}
-      <a class="navlink {% if page.url == topic.url %}is-active{% endif %}" href="{{ topic.url }}">{{ topic.title }}</a>
+      <div class="navtree-topic">
+        <a class="navlink {% if page.url == topic.url %}is-active{% endif %}" href="{{ topic.url }}">{{ topic.title }}</a>
+        {% set topicNotes = collections.notes | inTopic(topic.url) %}
+        {% if topicNotes.length %}
+          <div class="navtree-notes">
+            {% for note in topicNotes %}
+              <a class="navlink navlink--note {% if page.url == note.url %}is-active{% endif %}" href="{{ note.url }}">{{ note.data.title or note.fileSlug }}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
     {% endfor %}
   </nav>
-
-  {% if collections.notes.length %}
-    <nav class="navgroup">
-      <p class="navgroup-label">Notes</p>
-      {% for note in collections.notes %}
-        <a class="navlink {% if page.url == note.url %}is-active{% endif %}" href="{{ note.url }}">{{ note.data.title or note.fileSlug }}</a>
-      {% endfor %}
-    </nav>
-  {% endif %}
 </aside>
