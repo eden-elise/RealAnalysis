@@ -293,7 +293,11 @@ eq { display: inline; }
   counter-increment: eq;
   position: relative;
   display: flex;
-  justify-content: center;
+  /* "safe" falls back to start-alignment when the equation overflows, so
+     scrolling reaches its beginning — plain "center" crops both ends of
+     wide equations (e.g. long iff-chains) with no way to scroll to the
+     start, since the scrollable area is centered around the content. */
+  justify-content: safe center;
   margin: var(--space-5) 0;
   padding-right: var(--space-6);
   overflow-x: auto;
