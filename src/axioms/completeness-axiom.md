@@ -30,6 +30,9 @@ both while failing this. It has to be assumed outright, and doing so is
 what finally pins down $\mathbb{R}$ — everything that separates real
 analysis from "algebra with an order relation" (convergence, continuity,
 the intermediate value theorem) ultimately traces back to this one axiom.
+Following through on $\sup S$ actually squaring to $2$ is its own short
+argument — see
+[Existence of √2](/ordered-fields/existence-of-sqrt-2/).
 
 **Only "bounded above" is assumed — infima come along for free.** It might
 look like a second axiom is needed for the dual statement ("every nonempty
