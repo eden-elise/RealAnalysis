@@ -10,5 +10,6 @@ module.exports = [
   { url: "/continuity/", title: "Continuity" },
   { url: "/differentiation/", title: "Differentiation" },
   { url: "/integration/", title: "Integration" },
+  { url: "/problems/", title: "Problems" },
   { url: "/reference/", title: "Reference" },
 ];

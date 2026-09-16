@@ -77,6 +77,7 @@ module.exports = function (eleventyConfig) {
     definition: "DEF",
     theorem: "THM",
     technique: "TQ",
+    problem: "PROB",
     lemma: "LEM",
     corollary: "COR",
     proposition: "PROP",
@@ -84,6 +85,14 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter(
     "kindAbbrev",
     (kind) => KIND_ABBREV[kind] || (kind || "?").slice(0, 4).toUpperCase()
+  );
+
+  // Drops notes of a given `type` from a list — used to keep reference/
+  // to building-block statements only (definitions/theorems/axioms),
+  // excluding problem pages, which consume those building blocks rather
+  // than define them.
+  eleventyConfig.addFilter("excludeType", (notes, type) =>
+    notes.filter((note) => note.data.type !== type)
   );
 
   // Every non-landing page, in dependency order, with cross-links resolved.

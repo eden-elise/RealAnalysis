@@ -7,9 +7,10 @@ title: Reference
 <p>Every definition and theorem, statement only, in dependency order — a
 quick lookup of building blocks when working a proof.</p>
 
-{% if collections.notes.length %}
+{% set notes = collections.notes | excludeType("problem") %}
+{% if notes.length %}
   <ul class="reference-list">
-    {% for page in collections.notes %}
+    {% for page in notes %}
       <li>
         <a href="{{ page.url }}">{{ page.data.title }}</a>
         {% if page.data.statement is string %}

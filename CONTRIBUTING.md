@@ -27,7 +27,9 @@ file. Don't just quietly drift from it.
   existing topic until there's enough there to justify splitting it out.
 - `axioms/` holds foundational assumptions only — nothing else goes there.
 - `reference/` is generated from every note's frontmatter — never add
-  content to it by hand.
+  content to it by hand. It excludes `problem`-type pages (via the
+  `excludeType` filter in `.eleventy.js`), since it's a lookup of
+  building blocks, not a problem-set index.
 
 ## Note IDs
 
@@ -52,7 +54,7 @@ file. Don't just quietly drift from it.
 
 ## Note page template
 
-- `type`: `axiom` | `definition` | `theorem` | `technique`.
+- `type`: `axiom` | `definition` | `theorem` | `technique` | `problem`.
 - `kind` (theorem-type only, optional): `lemma` | `corollary` |
   `proposition` | `theorem` — a display label only, doesn't change the
   template shape.
@@ -77,6 +79,28 @@ file. Don't just quietly drift from it.
   whatever sections the technique needs. `prerequisites` is used when a
   technique's validity traces to a specific axiom (e.g. induction cites
   `peano-axioms`).
+- **Problems**: worked textbook/homework exercises, living in their own
+  `problems/` topic folder — kept separate from every other topic's
+  axiom/definition/theorem pages so a topic's sidebar entry and landing
+  page stay a clean list of building blocks, not diluted by exercises.
+  `prerequisites` (below) is what still connects a problem to whatever
+  topic it's actually about, cross-topic navigation, not folder
+  placement. `statement` is the problem's own prompt, verbatim or lightly
+  paraphrased into a standalone sentence, exactly like any other note.
+  Body is `## Solution` (not `## Proof`/`## Intuition` — a problem is
+  worked, not derived toward as a reusable result) containing the worked
+  answer as written. `prerequisites` lists the theorems/definitions/
+  axioms the solution actually leans on, same rule as everywhere else —
+  this is what makes a theorem's "Related results" section surface the
+  problems that use it. Excluded from `reference/` (below) since a
+  problem consumes building blocks rather than defining one. Multiple
+  sub-parts of the same numbered textbook problem that are one continuous
+  argument stay one page (one `##` per part); a cluster of *separate*
+  problem numbers that are all minor variations on the same technique
+  (e.g. "how sup/inf behaves under a set operation," repeated for several
+  operations) can be combined onto one page too — each part gets its own
+  clause in the `statement` list and its own `###` subheading in the
+  Solution, rather than a near-duplicate page per number.
 - `statement` goes in frontmatter, as complete, standalone sentence(s) —
   it's shown on its own (no surrounding context) in `reference/`, so it
   needs to make sense in isolation.
